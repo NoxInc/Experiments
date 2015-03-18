@@ -1,6 +1,7 @@
 package net.noxinc.inventory;
 
 import net.noxinc.Input;
+import net.noxinc.dialogs.Dialogs;
 import net.noxinc.world.cells.Cell;
 import net.noxinc.world.cells.EmptyCell;
 
@@ -8,10 +9,11 @@ public class Inventory
 {
 	private Cell[] inventory;
 	private Input myInput = new Input();
+	private int slotCounter = 0;
 	
 	public Inventory(int inventorySize)
 	{
-		inventory = new EmptyCell[inventorySize];
+		inventory = new Cell[inventorySize];
 		createCells();
 	}
 	
@@ -31,7 +33,7 @@ public class Inventory
 		tmp += "|";
 		System.out.println(tmp);
 		
-		System.out.println("0 Exit");
+		Dialogs.inventoryDialog();
 		
 		switch(myInput.getNextInt())
 		{
@@ -53,6 +55,12 @@ public class Inventory
 		{
 			inventory[x] = new EmptyCell();
 		}
+	}
+	
+	public void addToInventory(Cell cell)
+	{
+		inventory[slotCounter] = cell;
+		slotCounter++;
 	}
 
 }
