@@ -2,15 +2,10 @@ package net.noxinc.world.cells;
 
 public class DebugCell extends Cell
 {
-	private char symbol = 'D';
 	
 	public DebugCell()
 	{
-		
+		setSymbol('D');
 	}
 
-	public char getSymbol()
-	{
-		return symbol;
-	}
 }
