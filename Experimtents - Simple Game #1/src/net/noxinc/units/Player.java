@@ -52,7 +52,13 @@ public class Player extends Cell
 				break;
 			}else{
 				map.getBoard()[x][y] = tmpCell;
-				tmpCell = map.getBoard()[x][y - 1];
+				if(map.getCellAtPosition(x, y - 1).isCollectable())
+				{
+					playerInventory.addToInventory(map.getBoard()[x][y - 1]);
+					tmpCell = new EmptyCell();
+				}else{
+					tmpCell = map.getBoard()[x][y - 1];
+				}
 				map.getBoard()[x][y - 1] = tmpPlayer;
 				y--;
 			}
@@ -63,7 +69,13 @@ public class Player extends Cell
 				break;
 			}else{
 				map.getBoard()[x][y] = tmpCell;
-				tmpCell = map.getBoard()[x][y + 1];
+				if(map.getCellAtPosition(x, y + 1).isCollectable())
+				{
+					playerInventory.addToInventory(map.getBoard()[x][y + 1]);
+					tmpCell = new EmptyCell();
+				}else{
+					tmpCell = map.getBoard()[x][y + 1];
+				}
 				map.getBoard()[x][y + 1] = tmpPlayer;
 				y++;
 			}
@@ -74,7 +86,13 @@ public class Player extends Cell
 				break;
 			}else{
 				map.getBoard()[x][y] = tmpCell;
-				tmpCell = map.getBoard()[x + 1][y];
+				if(map.getCellAtPosition(x + 1, y).isCollectable())
+				{
+					playerInventory.addToInventory(map.getBoard()[x + 1][y]);
+					tmpCell = new EmptyCell();
+				}else{
+					tmpCell = map.getBoard()[x + 1][y];
+				}
 				map.getBoard()[x + 1][y] = tmpPlayer;
 				x++;
 			}
@@ -85,7 +103,13 @@ public class Player extends Cell
 				break;
 			}else{
 				map.getBoard()[x][y] = tmpCell;
-				tmpCell = map.getBoard()[x - 1][y];
+				if(map.getCellAtPosition(x - 1, y).isCollectable())
+				{
+					playerInventory.addToInventory(map.getBoard()[x - 1][y]);
+					tmpCell = new EmptyCell();
+				}else{
+					tmpCell = map.getBoard()[x - 1][y];
+				}
 				map.getBoard()[x - 1][y] = tmpPlayer;
 				x--;
 			}
