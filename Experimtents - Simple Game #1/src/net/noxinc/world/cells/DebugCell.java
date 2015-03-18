@@ -6,6 +6,7 @@ public class DebugCell extends Cell
 	public DebugCell()
 	{
 		setSymbol('D');
+		setCollectable(true);
 	}
 
 }
