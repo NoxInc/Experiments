@@ -1,11 +1,13 @@
 package net.noxinc.inventory;
 
+import net.noxinc.Input;
 import net.noxinc.world.cells.Cell;
 import net.noxinc.world.cells.EmptyCell;
 
 public class Inventory 
 {
 	private Cell[] inventory;
+	private Input myInput = new Input();
 	
 	public Inventory(int inventorySize)
 	{
@@ -28,6 +30,16 @@ public class Inventory
 		}
 		tmp += "|";
 		System.out.println(tmp);
+		
+		System.out.println("0 Exit");
+		
+		switch(myInput.getNextInt())
+		{
+			case 0:
+				break;
+			default:
+				break;
+		}
 	}
 	
 	public int inventorySize()
