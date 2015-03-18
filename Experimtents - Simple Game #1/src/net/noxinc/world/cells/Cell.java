@@ -14,9 +14,10 @@ public class Cell
 		return symbol;
 	}
 	
-	protected void setSymbol(char symbol)
+	public Cell setSymbol(char symbol)
 	{
 		this.symbol = symbol;
+		return this;
 	}
 	
 }
