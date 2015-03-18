@@ -9,11 +9,12 @@ import net.noxinc.world.cells.DebugCell;
 
 public class Main 
 {
+	private static Scanner myScanner = new Scanner(System.in);
+	private static Map map  = new Map(10, 10);
+	private static Player player = new Player(map, 1, 1, 5);
+	
 	public static void main(String[] args)
 	{
-		Scanner myScanner = new Scanner(System.in);
-		Map map  = new Map(10, 10);
-		Player player = new Player(map, 1, 1, 5);
 		
 		map.createCellAtPosistion(4, 4, new DebugCell());
 		
@@ -21,8 +22,8 @@ public class Main
 		{
 			map.redraw();
 			Dialogs.moveDialog();
-			player.move(myScanner.nextInt());
+			
+			player.input(myScanner.nextInt());
 		}
 	}
-
 }
