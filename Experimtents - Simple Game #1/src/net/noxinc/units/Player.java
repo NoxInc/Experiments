@@ -36,7 +36,12 @@ public class Player extends Cell
 		return playerInventory;
 	}
 	
-	public void move(int direction)
+	public void openInventory()
+	{
+		getInventory().openInventory();
+	}
+	
+	public void input(int direction)
 	{
 		tmpPlayer = map.getBoard()[x][y];
 		switch(direction)
@@ -84,6 +89,11 @@ public class Player extends Cell
 				map.getBoard()[x - 1][y] = tmpPlayer;
 				x--;
 			}
+			break;
+		case 5:
+			openInventory();
+			break;
+		default:
 			break;
 		}
 	}
