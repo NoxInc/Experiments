@@ -24,7 +24,7 @@ public class Main
 		map.createCellAtPosistion(3, 3, new HealingCell());
 		map.createCellAtPosistion(4, 3, new HealingCell(10));
 		
-		while(true)
+		while(player.getHealth() > 0)
 		{
 			player.getMap().redraw();
 			Dialogs.moveDialog();
