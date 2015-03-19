@@ -23,6 +23,8 @@ public class Inventory
 	
 	public void openInventory()
 	{
+		player.getMap().redraw();
+		
 		String tmp = "";
 		tmp += " ";
 		for(int x = 0; x < inventorySize(); x++)
@@ -88,8 +90,12 @@ public class Inventory
 	
 	public void addToInventory(Cell cell)
 	{
-		inventory[slotCounter] = cell.collect(player);
-		slotCounter++;
+		for(int x = 0; x < inventory.length; x++)
+		if(inventory[x].getSymbol() == ' ')
+		{
+			inventory[x] = cell.collect(player);
+			break;
+		}
 	}
 
 }
