@@ -12,6 +12,7 @@ public class Inventory
 	private Player player;
 	private Input myInput = new Input();
 	private int slotCounter = 0;
+	private int tmpInt;
 	
 	public Inventory(int inventorySize, Player player)
 	{
@@ -44,10 +45,20 @@ public class Inventory
 				break;
 			case 1:
 				Dialogs.cellSelection();
-				int tmpInt = myInput.getNextInt();
+				tmpInt = myInput.getNextInt();
 				if(tmpInt > 0 && inventory[tmpInt - 1] != null && inventory[tmpInt - 1].isConsumable())
 				{
 					inventory[tmpInt - 1].consume();
+					inventory[tmpInt - 1] = new EmptyCell();
+					slotCounter--;
+				}
+				break;
+			case 2:
+				Dialogs.cellSelection();
+				tmpInt = myInput.getNextInt();
+				if(tmpInt > 0 && inventory[tmpInt - 1] != null)
+				{
+					player.placeCell(inventory[tmpInt - 1]);
 					inventory[tmpInt - 1] = new EmptyCell();
 					slotCounter--;
 				}

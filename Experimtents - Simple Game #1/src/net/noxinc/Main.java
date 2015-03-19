@@ -14,7 +14,7 @@ public class Main
 {
 	private static Scanner myScanner = new Scanner(System.in);
 	private static Map map  = new Map(10, 10);
-	private static Map home = new Map();
+	private static Map home = new Map(7, 7);
 	private static Player player = new Player(map, 1, 1, 5);
 	
 	public static void main(String[] args)
@@ -25,6 +25,8 @@ public class Main
 		map.createCellAtPosistion(3, 3, new HealingCell());
 		map.createCellAtPosistion(4, 3, new HealingCell(10));
 		home.createCellAtPosistion(1, 3, new MineCell(1, 3));
+		
+		player.getInventory().addToInventory(new SolidCell());
 		
 		while(player.getHealth() > 0)
 		{

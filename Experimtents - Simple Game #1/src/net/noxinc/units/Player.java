@@ -62,6 +62,11 @@ public class Player extends Cell
 		dest.getBoard()[x][y] = this;
 	}
 	
+	public void placeCell(Cell cell)
+	{
+		tmpCell = cell;
+	}
+	
 	public void input(int direction)
 	{
 		switch(direction)

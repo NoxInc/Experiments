@@ -14,7 +14,8 @@ public class Dialogs
 	public static void inventoryDialog()
 	{
 		System.out.println("0 Exit");
-		System.out.println("1 Consume item");
+		System.out.println("1 Consume cell");
+		System.out.println("2 Place cell");
 	}
 	
 	public static void cellSelection()
