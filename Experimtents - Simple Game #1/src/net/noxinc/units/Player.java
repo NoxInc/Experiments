@@ -4,6 +4,7 @@ import net.noxinc.inventory.Inventory;
 import net.noxinc.world.Map;
 import net.noxinc.world.cells.Cell;
 import net.noxinc.world.cells.EmptyCell;
+import net.noxinc.world.cells.TeleportCell;
 
 public class Player extends Cell
 {
@@ -32,16 +33,6 @@ public class Player extends Cell
 		map.getBoard()[x][y] = this;
 	}
 	
-	public Inventory getInventory()
-	{
-		return playerInventory;
-	}
-	
-	public int getHealth()
-	{
-		return health;
-	}
-	
 	public void decreseHealth(int value)
 	{
 		health -= value;
@@ -57,22 +48,96 @@ public class Player extends Cell
 		getInventory().openInventory();
 	}
 	
+	private void setTmpCell(Cell cell)
+	{
+		tmpCell = cell;
+	}
+	
+	public void teleport(int x, int y)
+	{
+		map.getBoard()[this.x][this.y] = new EmptyCell();
+		this.x = x;
+		this.y = y;
+		setTmpCell(map.getCellAtPosition(x, y));
+		map.getBoard()[x][y] = this;
+	}
+	
 	public void input(int direction)
 	{
-		tmpPlayer = map.getBoard()[x][y];
+//		tmpPlayer = map.getBoard()[x][y];
 		switch(direction)
 		{
 		case 1:
-			moveUp();
+			if(!(y - 1 < 1))
+		    {
+				if(map.getCellAtPosition(x, y - 1) instanceof TeleportCell)
+				{
+					tmpCell = map.getCellAtPosition(x, y - 1);
+					checkTmpCell();
+					
+				}else if(!(map.getCellAtPosition(x, y - 1).isSolid()))
+		        {
+			        map.getBoard()[x][y] = tmpCell;
+			        tmpCell = map.getCellAtPosition(x, y - 1);
+			        map.getBoard()[x][y - 1] = this;
+			        y--;
+		        	checkTmpCell();
+		        }
+		    }
 			break;
 		case 2:
-			moveDown();
+			if(!(y + 1 > map.getYLength() - 2))
+		    {
+				if(map.getCellAtPosition(x, y + 1) instanceof TeleportCell)
+				{
+					tmpCell = map.getCellAtPosition(x, y + 1);
+					checkTmpCell();
+					
+		    	}else if(!(map.getCellAtPosition(x, y + 1).isSolid()))
+		        {
+		            map.getBoard()[x][y] = tmpCell;
+		            tmpCell = map.getCellAtPosition(x, y + 1);
+		            map.getBoard()[x][y + 1] = this;
+		            y++;
+		            checkTmpCell();
+		        }
+		    }
 			break;
 		case 3:
-			moveRight();
+			if(!(x + 1 > map.getXLength() - 2))
+		    {
+				if(map.getCellAtPosition(x + 1, y) instanceof TeleportCell)
+				{
+					tmpCell = map.getCellAtPosition(x + 1, y);
+					checkTmpCell();
+					
+		    	}else if(!(map.getCellAtPosition(x + 1, y).isSolid()))
+		        {
+		            map.getBoard()[x][y] = tmpCell;
+		            tmpCell = map.getCellAtPosition(x + 1, y);
+		            map.getBoard()[x + 1][y] = this;
+		            x++;
+		            checkTmpCell();
+		        }
+		    }
 			break;
 		case 4:
-			moveLeft();
+			if(!(x - 1 < 1))
+		    {
+				if(map.getCellAtPosition(x - 1, y) instanceof TeleportCell)
+				{
+					tmpCell = map.getCellAtPosition(x - 1, y);
+					checkTmpCell();
+					
+		    	}else if(!(map.getCellAtPosition(x - 1, y).isSolid()))
+		        {
+		            map.getBoard()[x][y] = tmpCell;
+		            tmpCell = map.getCellAtPosition(x - 1, y);
+		            map.getBoard()[x - 1][y] = this;
+		            x--;
+		            checkTmpCell();
+		        }
+		    }
 			break;
 		case 5:
 			openInventory();
@@ -81,95 +146,46 @@ public class Player extends Cell
 			break;
 		}
 	}
-	private void moveUp()
+	
+	private void checkTmpCell()
 	{
-		tmpPlayer = map.getBoard()[x][y];
-		if(!(y - 1 < 1))
+		if(tmpCell.isCollectable())
 		{
-			if(map.getCellAtPosition(x, y - 1).isCollectable())
-			{
-				map.getBoard()[x][y] = tmpCell;
-				playerInventory.addToInventory(map.getCellAtPosition(x, y - 1));//.collect(this)); /*map.getBoard()[x][y - 1])*/;
-				tmpCell = new EmptyCell();
-				map.getBoard()[x][y - 1] = tmpPlayer;
-				y--;
-			}else if((map.getCellAtPosition(x, y - 1).isSolid()))
-			{
-			}else{
-				map.getBoard()[x][y] = tmpCell;
-				tmpCell = map.getBoard()[x][y - 1];
-				map.getBoard()[x][y - 1] = tmpPlayer;
-				y--;
-			}
+			playerInventory.addToInventory(tmpCell);
+			tmpCell = new EmptyCell();
+		}else if(tmpCell.canStepOn())
+		{
+			tmpCell.onSteppedOn(this);
 		}
 	}
 	
-	private void moveDown()
+	public Inventory getInventory()
 	{
-		tmpPlayer = map.getBoard()[x][y];
-		if(!(y + 1 > map.getYLength() - 2))
-		{
-			if(map.getCellAtPosition(x, y + 1).isCollectable())
-			{
-				map.getBoard()[x][y] = tmpCell;
-				playerInventory.addToInventory(map.getCellAtPosition(x, y + 1));
-				tmpCell = new EmptyCell();
-				map.getBoard()[x][y + 1] = tmpPlayer;
-				y++;
-			}else if((map.getCellAtPosition(x, y + 1).isSolid()))
-			{
-			}else{
-				map.getBoard()[x][y] = tmpCell;
-				tmpCell = map.getBoard()[x][y + 1];
-				map.getBoard()[x][y + 1] = tmpPlayer;
-				y++;
-			}
-		}
+		return playerInventory;
 	}
 	
-	private void moveRight()
+	public int getHealth()
 	{
-		tmpPlayer = map.getBoard()[x][y];
-		if(!(x + 1 > map.getXLength() - 2))
-		{
-			if(map.getCellAtPosition(x + 1, y).isCollectable())
-			{
-				map.getBoard()[x][y] = tmpCell;
-				playerInventory.addToInventory(map.getCellAtPosition(x + 1, y));
-				tmpCell = new EmptyCell();
-				map.getBoard()[x + 1][y] = tmpPlayer;
-				x++;
-			}else if((map.getCellAtPosition(x + 1, y).isSolid()))
-			{
-			}else{
-				map.getBoard()[x][y] = tmpCell;
-				tmpCell = map.getBoard()[x + 1][y];
-				map.getBoard()[x + 1][y] = tmpPlayer;
-				x++;
-			}
-		}
+		return health;
 	}
 	
-	private void moveLeft()
+	public int getX()
 	{
-		tmpPlayer = map.getBoard()[x][y];
-		if(!(y - 1 < 1))
-		{
-			if(map.getCellAtPosition(x - 1, y).isCollectable())
-			{
-				map.getBoard()[x][y] = tmpCell;
-				playerInventory.addToInventory(map.getCellAtPosition(x - 1, y));
-				tmpCell = new EmptyCell();
-				map.getBoard()[x - 1][y] = tmpPlayer;
-				x--;
-			}else if((map.getCellAtPosition(x - 1, y).isSolid()))
-			{
-			}else{
-				map.getBoard()[x][y] = tmpCell;
-				tmpCell = map.getBoard()[x - 1][y];
-				map.getBoard()[x - 1][y] = tmpPlayer;
-				x--;
-			}
-		}
+		return x;
+	}
+	
+	public int getY()
+	{
+		return y;
+	}
+	
+	public Map getMap()
+	{
+		return map;
+	}
+	
+	public Cell getTmpCell()
+	{
+		return tmpCell;
 	}
 }

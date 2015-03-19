@@ -12,6 +12,7 @@ public class Cell
 	private boolean collectable;
 	private boolean solidness;
 	private boolean consumable;
+	private boolean onSteppedOn;
 	
 	public Cell()
 	{
@@ -51,6 +52,17 @@ public class Cell
 	public boolean isConsumable()
 	{
 		return consumable;
+	}
+	
+	public boolean canStepOn()
+	{
+		return onSteppedOn;
+	}
+	
+	public Cell setStepOn(boolean value)
+	{
+		onSteppedOn = value;
+		return this;
 	}
 	
 	public Cell setPlayer(Player player)
@@ -103,6 +115,11 @@ public class Cell
 	}
 	
 	public void onConsumtion()
+	{
+		
+	}
+	
+	public void onSteppedOn(Player player)
 	{
 		
 	}
