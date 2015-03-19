@@ -17,7 +17,6 @@ public class Main
 	
 	public static void main(String[] args)
 	{
-		
 		map.createCellAtPosistion(4, 4, new SolidCell());
 		map.createCellAtPosistion(4, 5, new DebugCell());
 		map.createCellAtPosistion(3, 3, new HealingCell());

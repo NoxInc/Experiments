@@ -7,5 +7,4 @@ public class SolidCell extends Cell
 		setSymbol('+');
 		setSolidness(true);
 	}
-
 }

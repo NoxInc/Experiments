@@ -19,8 +19,8 @@ public class Map
 	{
 		xLength = x;
 		yLength = y;
-		
 		board = new Cell[x][y];
+		
 		fillBoard();
 	}
 	
@@ -78,5 +78,4 @@ public class Map
 	{
 		return board;
 	}
-
 }
