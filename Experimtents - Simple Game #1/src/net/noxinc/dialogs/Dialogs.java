@@ -21,5 +21,4 @@ public class Dialogs
 	{
 		System.out.println("Enter slot to select cellitem");
 	}
-
 }
