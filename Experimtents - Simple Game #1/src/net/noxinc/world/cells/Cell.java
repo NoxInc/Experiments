@@ -4,6 +4,7 @@ public class Cell
 {
 	private char symbol;
 	private boolean collectable;
+	private boolean solidness;
 	
 	public Cell()
 	{
@@ -18,6 +19,18 @@ public class Cell
 	public boolean isCollectable()
 	{
 		return collectable;
+	}
+	
+	public boolean isSolid()
+	{
+		return solidness;
+	}
+	
+	public Cell setSolidness(boolean value)
+	{
+		solidness = value;
+		collectable = false;
+		return this;
 	}
 	
 	public Cell setCollectable(boolean value)
