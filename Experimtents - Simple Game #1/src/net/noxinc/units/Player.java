@@ -47,7 +47,7 @@ public class Player extends Cell
 		getInventory().openInventory();
 	}
 	
-	private void setTmpCell(Cell cell)
+	public void setTmpCell(Cell cell)
 	{
 		tmpCell = cell;
 	}
