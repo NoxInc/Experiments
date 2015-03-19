@@ -6,6 +6,7 @@ import net.noxinc.dialogs.Dialogs;
 import net.noxinc.units.Player;
 import net.noxinc.world.Map;
 import net.noxinc.world.cells.DebugCell;
+import net.noxinc.world.cells.HealingCell;
 import net.noxinc.world.cells.SolidCell;
 
 public class Main 
@@ -18,7 +19,10 @@ public class Main
 	{
 		
 		map.createCellAtPosistion(4, 4, new SolidCell());
-		map.createCellAtPosistion(4, 5, new DebugCell().setCollectable(false).setSolidness(false));
+		map.createCellAtPosistion(4, 5, new DebugCell());
+		map.createCellAtPosistion(3, 3, new HealingCell());
+		map.createCellAtPosistion(4, 3, new HealingCell(10));
+		
 		while(true)
 		{
 			map.redraw();
