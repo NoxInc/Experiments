@@ -5,7 +5,6 @@ import java.util.Scanner;
 import net.noxinc.dialogs.Dialogs;
 import net.noxinc.units.Player;
 import net.noxinc.world.Map;
-import net.noxinc.world.cells.Cell;
 import net.noxinc.world.cells.DebugCell;
 
 public class Main 
