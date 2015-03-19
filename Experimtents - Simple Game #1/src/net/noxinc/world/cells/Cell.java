@@ -1,14 +1,36 @@
 package net.noxinc.world.cells;
 
+import net.noxinc.units.Player;
+import net.noxinc.world.Map;
+
+
 public class Cell 
 {
+	private Player player;
+	private Map map;
 	private char symbol;
 	private boolean collectable;
 	private boolean solidness;
+	private boolean consumable;
 	
 	public Cell()
 	{
 		
+	}
+	
+	public void consume()
+	{
+		onConsumtion();
+	}
+	
+	public Player getPlayer()
+	{
+		return player;
+	}
+	
+	public Map getMap()
+	{
+		return map;
 	}
 	
 	public char getSymbol()
@@ -24,6 +46,29 @@ public class Cell
 	public boolean isSolid()
 	{
 		return solidness;
+	}
+	
+	public boolean isConsumable()
+	{
+		return consumable;
+	}
+	
+	public Cell setPlayer(Player player)
+	{
+		this.player = player;
+		return this;
+	}
+	
+	public Cell setMap(Map map)
+	{
+		this.map = map;
+		return this;
+	}
+	
+	public Cell setConsumability(boolean value)
+	{
+		consumable = value;
+		return this;
 	}
 	
 	public Cell setSolidness(boolean value)
@@ -44,5 +89,24 @@ public class Cell
 		this.symbol = symbol;
 		return this;
 	}
+	
+	public Cell collect(Player player)
+	{
+		this.player = player;
+		onCollection();
+		return this;
+	}
+	
+	public void onCollection()
+	{
+		
+	}
+	
+	public void onConsumtion()
+	{
+		
+	}
+	
+	
 	
 }
