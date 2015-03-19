@@ -14,7 +14,7 @@ public class Dialogs
 	public static void inventoryDialog()
 	{
 		System.out.println("0 Exit");
-		System.out.println("1 Add item");
+		System.out.println("1 Use item");
 	}
 
 }
