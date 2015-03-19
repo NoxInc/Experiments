@@ -11,7 +11,6 @@ public class Inventory
 	private Cell[] inventory;
 	private Player player;
 	private Input myInput = new Input();
-	private int slotCounter = 0;
 	private int tmpInt;
 	
 	public Inventory(int inventorySize, Player player)
@@ -52,7 +51,6 @@ public class Inventory
 				{
 					inventory[tmpInt - 1].consume();
 					inventory[tmpInt - 1] = new EmptyCell();
-					slotCounter--;
 				}
 				break;
 			case 2:
@@ -62,7 +60,6 @@ public class Inventory
 				{
 					player.placeCell(inventory[tmpInt - 1]);
 					inventory[tmpInt - 1] = new EmptyCell();
-					slotCounter--;
 				}
 				break;
 			default:
