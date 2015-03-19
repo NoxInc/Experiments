@@ -5,7 +5,7 @@ import net.noxinc.world.cells.EmptyCell;
 
 public class Map 
 {
-	Cell[][] board;
+	private Cell[][] board;
 	
 	private int xLength;
 	private int yLength;

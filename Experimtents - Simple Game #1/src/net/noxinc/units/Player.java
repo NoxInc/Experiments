@@ -12,6 +12,7 @@ public class Player extends Cell
 	private Cell tmpPlayer;
 	private int x;
 	private int y;
+	private int health = 10;
 	private Inventory playerInventory;
 	
 	public Player(Map map, int x, int y, int invSize)
@@ -20,7 +21,7 @@ public class Player extends Cell
 		this.x = x;
 		this.y = y;
 		
-		playerInventory = new Inventory(invSize);
+		playerInventory = new Inventory(invSize, this);
 		
 		setSymbol('P');
 		spawnPlayer(map);
@@ -34,6 +35,21 @@ public class Player extends Cell
 	public Inventory getInventory()
 	{
 		return playerInventory;
+	}
+	
+	public int getHealth()
+	{
+		return health;
+	}
+	
+	public void decreseHealth(int value)
+	{
+		health -= value;
+	}
+	
+	public void heal(int value)
+	{
+		health += value;
 	}
 	
 	public void openInventory()
@@ -73,7 +89,7 @@ public class Player extends Cell
 			if(map.getCellAtPosition(x, y - 1).isCollectable())
 			{
 				map.getBoard()[x][y] = tmpCell;
-				playerInventory.addToInventory(map.getBoard()[x][y - 1]);
+				playerInventory.addToInventory(map.getCellAtPosition(x, y - 1));//.collect(this)); /*map.getBoard()[x][y - 1])*/;
 				tmpCell = new EmptyCell();
 				map.getBoard()[x][y - 1] = tmpPlayer;
 				y--;
@@ -96,7 +112,7 @@ public class Player extends Cell
 			if(map.getCellAtPosition(x, y + 1).isCollectable())
 			{
 				map.getBoard()[x][y] = tmpCell;
-				playerInventory.addToInventory(map.getBoard()[x][y + 1]);
+				playerInventory.addToInventory(map.getCellAtPosition(x, y + 1));
 				tmpCell = new EmptyCell();
 				map.getBoard()[x][y + 1] = tmpPlayer;
 				y++;
@@ -119,7 +135,7 @@ public class Player extends Cell
 			if(map.getCellAtPosition(x + 1, y).isCollectable())
 			{
 				map.getBoard()[x][y] = tmpCell;
-				playerInventory.addToInventory(map.getBoard()[x + 1][y]);
+				playerInventory.addToInventory(map.getCellAtPosition(x + 1, y));
 				tmpCell = new EmptyCell();
 				map.getBoard()[x + 1][y] = tmpPlayer;
 				x++;
@@ -142,7 +158,7 @@ public class Player extends Cell
 			if(map.getCellAtPosition(x - 1, y).isCollectable())
 			{
 				map.getBoard()[x][y] = tmpCell;
-				playerInventory.addToInventory(map.getBoard()[x - 1][y]);
+				playerInventory.addToInventory(map.getCellAtPosition(x - 1, y));
 				tmpCell = new EmptyCell();
 				map.getBoard()[x - 1][y] = tmpPlayer;
 				x--;
