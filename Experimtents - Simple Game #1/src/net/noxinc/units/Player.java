@@ -10,7 +10,6 @@ public class Player extends Cell
 {
 	private Map map;
 	private Cell tmpCell = new EmptyCell();
-	private Cell tmpPlayer;
 	private int x;
 	private int y;
 	private int health = 10;
@@ -53,18 +52,18 @@ public class Player extends Cell
 		tmpCell = cell;
 	}
 	
-	public void teleport(int x, int y)
+	public void teleport(Map dest,int x, int y)
 	{
 		map.getBoard()[this.x][this.y] = new EmptyCell();
 		this.x = x;
 		this.y = y;
-		setTmpCell(map.getCellAtPosition(x, y));
-		map.getBoard()[x][y] = this;
+		map = dest;
+		setTmpCell(dest.getCellAtPosition(x, y));
+		dest.getBoard()[x][y] = this;
 	}
 	
 	public void input(int direction)
 	{
-//		tmpPlayer = map.getBoard()[x][y];
 		switch(direction)
 		{
 		case 1:
